@@ -2,7 +2,7 @@ trigger:
 - main
 - develop
 pool:
-  name: ubuntu
+  name: UBUNTU
 variables:
   - group: Polaris SAST scan variables
 steps:
