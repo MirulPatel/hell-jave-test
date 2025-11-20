@@ -4,7 +4,7 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 variables:
-  - group: poc.polaris.blackduck.com
+  - group: Polaris SAST scan variables
 steps:
 - task: JavaToolInstaller@0
   displayName: 'Install JDK'
