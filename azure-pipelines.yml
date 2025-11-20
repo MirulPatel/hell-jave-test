@@ -1,51 +1,32 @@
-# example ADO pipeline for Polaris using the Bridge CLI good test
 trigger:
 - main
-
+- develop
 pool:
   vmImage: ubuntu-latest
-
 variables:
-- group: group
-- name: BRIDGE_POLARIS_APPLICATION_NAME
-  value: 'AJWhello-java'      #change this name
-- name: BRIDGE_POLARIS_PROJECT_NAME
-  value: 'AJWHelloJ'    # change this name
+  - group: poc.polaris.blackduck.com
 steps:
 - task: JavaToolInstaller@0
-  displayName: 'Use Java 17'
+  displayName: 'Install JDK'
   inputs:
-    versionSpec: 17
+    versionSpec: 21
     jdkArchitectureOption: x64
     jdkSourceOption: PreInstalled
-- task: SynopsysSecurityScan@1
+- task: Maven@4
+  displayName: 'Maven Build'
   inputs:
-    scanType: 'blackduck'
-    bridge_blackduck_url: 'https://poc304.blackduck.synopsys.com'
-    bridge_blackduck_token: 'xxxxxxxxxxxmFAKE_TOKENLWE1NzctNWMwNTYxMDMxN2ZkOjczMzkzZjQ5LWZkZWQtNGEzNC04ZjA3LTVmMzllNmI4MDg1Mw'
-    bridge_blackduck_scan_full: true
-- bash: |
-    curl -fLsS -o bridge.zip $BRIDGECLI_LINUX64 && unzip -qo -d $(Agent.TempDirectory) bridge.zip && rm -f bridge.zip
-    $(Agent.TempDirectory)/synopsys-bridge --stage polaris polaris.assessment.types=SAST
+    options: '-B -DskipTests'
+- task: BlackDuckSecurityScan@2
   displayName: 'Polaris Scan'
-  env:
-    BRIDGE_POLARIS_ACCESSTOKEN: $(BRIDGE_POLARIS_ACCESSTOKEN)
-    BRIDGE_POLARIS_SERVERURL: $(BRIDGE_POLARIS_SERVERURL)
-    
-
-- task: ArchiveFiles@2
-  displayName: 'Copy Log Files'
-  condition: succeededOrFailed()
-  enabled: true
   inputs:
-    rootFolderOrFile: .bridge
-    includeRootFolder: false
-    archiveFile: '$(Build.ArtifactStagingDirectory)/bridge-logs.zip'
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Log Files'
-  condition: succeededOrFailed()
-  enabled: true
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'logs'
+    polaris_server_url: $(POLARIS_SERVERURL)
+    polaris_access_token: $(POLARIS_ACCESSTOKEN)
+    polaris_assessment_types: 'SAST,SCA'
+    polaris_application_name: chuckaude-$(Build.Repository.Name)
+    polaris_prcomment_enabled: true
+    polaris_reports_sarif_create: true
+    coverity_build_command: mvn -B -DskipTests package
+    coverity_clean_command: mvn -B clean
+    azure_token: $(System.AccessToken)
+    include_diagnostics: false
+    mark_build_status: 'SucceededWithIssues'
