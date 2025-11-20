@@ -22,7 +22,7 @@ steps:
     polaris_server_url: $(POLARIS_SERVERURL)
     polaris_access_token: $(POLARIS_ACCESSTOKEN)
     polaris_assessment_types: 'SAST,SCA'
-    polaris_application_name: chuckaude-$(Build.Repository.Name)
+    polaris_application_name: TEST_APP
     polaris_prcomment_enabled: true
     polaris_reports_sarif_create: true
     coverity_build_command: mvn -B -DskipTests package
