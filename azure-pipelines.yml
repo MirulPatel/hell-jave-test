@@ -2,7 +2,7 @@ trigger:
 - main
 - develop
 pool:
-  name: UBUNTU
+  vmImage: ubuntu-latest
 variables:
   - group: Polaris SAST scan variables
 steps:
