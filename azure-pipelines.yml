@@ -22,7 +22,9 @@ steps:
     polaris_server_url: $(POLARIS_SERVERURL)
     polaris_access_token: $(POLARIS_ACCESSTOKEN)
     polaris_assessment_types: 'SAST,SCA'
-    polaris_application_name: TEST_APP
+    polaris_application_name: Mirul_test123
+    polaris_project_name: test_project
+    polaris.onboarding: true
     polaris_prcomment_enabled: true
     polaris_reports_sarif_create: true
     coverity_build_command: mvn -B -DskipTests package
