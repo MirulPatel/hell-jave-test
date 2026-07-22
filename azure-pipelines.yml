@@ -25,6 +25,7 @@ steps:
     POLARIS_APPLICATION_NAME:  'Mirul_test123'
     POLARIS_PROJECT_NAME: 'test_project'
    # polaris.onboarding: false
+    azure_token: $(SYS_AZURE_TOKEN)
     COVERITY_BUILD_COMMAND: 'mvn -B -DskipTests package'
     COVERITY_CLEAN_COMMAND: 'mvn -B clean'
     INCLUDE_DIAGNOSTICS: 'false'
