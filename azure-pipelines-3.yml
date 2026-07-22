@@ -1,0 +1,31 @@
+trigger:
+- main
+pool:
+  vmImage: ubuntu-latest
+variables:
+  - group: Polaris_var
+steps:
+- task: JavaToolInstaller@0
+  displayName: 'Install JDK'
+  inputs:
+    versionSpec: 21
+    jdkArchitectureOption: x64
+    jdkSourceOption: PreInstalled
+- task: Maven@4
+  displayName: 'Maven Build'
+  inputs:
+    options: '-B -DskipTests'
+- task: BlackDuckSecurityScan@2
+  displayName: 'Polaris Scan'
+  inputs:
+    POLARIS_SERVER_URL: $(POLARIS_SERVERURL)
+    POLARIS_ACCESS_TOKEN: $(POLARIS_ACCESSTOKEN)
+    POLARIS_ASSESSMENT_TYPES: 'SAST'
+    POLARIS_TEST_SAST_TYPE: 'SAST_RAPID'
+    POLARIS_APPLICATION_NAME:  'Mirul_test123'
+    POLARIS_PROJECT_NAME: 'test_project'
+    polaris.onboarding: false
+    COVERITY_BUILD_COMMAND: 'mvn -B -DskipTests package'
+    COVERITY_CLEAN_COMMAND: 'mvn -B clean'
+    INCLUDE_DIAGNOSTICS: 'false'
+    MARK_BUILD_STATUS: 'SucceededWithIssues'
