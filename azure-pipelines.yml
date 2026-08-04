@@ -1,5 +1,9 @@
 trigger:
 - main
+pr:
+  branches:
+    include:
+      - main
 pool:
   vmImage: ubuntu-latest
 variables:
@@ -22,8 +26,8 @@ steps:
     POLARIS_ACCESS_TOKEN: $(POLARIS_ACCESSTOKEN)
     POLARIS_ASSESSMENT_TYPES: 'SAST'
     POLARIS_TEST_SAST_TYPE: 'SAST_RAPID'
-    POLARIS_APPLICATION_NAME:  'Mirul_test123'
-    POLARIS_PROJECT_NAME: 'test_project'
+    POLARIS_APPLICATION_NAME:  'integrations'
+    POLARIS_PROJECT_NAME: 'git-test'
    # polaris.onboarding: false
     azure_token: $(SYS_AZURE_TOKEN)
     COVERITY_BUILD_COMMAND: 'mvn -B -DskipTests package'
