@@ -16,3 +16,5 @@ public class NullReturnsExample {
         returnB().toString();
     }
 }
+
+printf("uwhyuhdushdud");
