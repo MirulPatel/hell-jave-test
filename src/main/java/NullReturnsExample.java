@@ -17,4 +17,3 @@ public class NullReturnsExample {
     }
 }
 prntbfgfvsdjfbafjb =sfhsfhhdsdsf
-printf("uwhyuhdushdud");
