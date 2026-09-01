@@ -3,7 +3,7 @@
 #     include:
 #       - main
 trigger:
-- main
+  - main
 pool:
   vmImage: ubuntu-latest
 variables:
