@@ -16,5 +16,4 @@ public class NullReturnsExample {
         returnB().toString();
     }
 }
-
-print ("hwbee")
+prntbfgfvsdjfbafjb =sfhsfhhdsdsf
