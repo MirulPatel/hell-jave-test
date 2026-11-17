@@ -22,9 +22,9 @@ jobs:
     - name: Coverity Scan
       uses: blackduck-inc/black-duck-security-scan@152247222aa9cd38124acd5c0cf60f4db71adc3f # v2.11.0
       with:
-        coverity_url: 'http://localhost:8080/'
-        coverity_user: 'admin'
-        coverity_passphrase: 'Msp@3089'
+        coverity_url: 'URL'
+        coverity_user: 'added'
+        coverity_passphrase: 'password'
         coverity_policy_view: ${{ github.event_name != 'pull_request' && 'Outstanding Issues' || '' }}
         coverity_prComment_enabled: true
         coverity_build_command: mvn -B -DskipTests package
